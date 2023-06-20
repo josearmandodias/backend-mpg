@@ -5,17 +5,26 @@ export default {
     try {
       const cluster = await dbconnection();
 
-      const id = 'mpg_league_' + leagueId;
-    
+      const id = 'mpg_league_' + Number(leagueId);
+      
       let result = await cluster.query((`
         SELECT *
         FROM mpg
         WHERE id=$1;
-      `), {parameters: [id]});
+      `), { parameters: [id] });
 
-      console.log(result);
+      const rows = result.rows[0];
+      const mpgObject: any = rows.mpg;
 
-      return result.rows[0];
+      let users: Array<any>;
+
+      if(!mpgObject.usersTeams){
+        users = [];
+      } else {
+        users = Object.keys(mpgObject.usersTeams);
+      }
+
+      return users;
     } catch (err: any) {
       throw new Error(err);
     }
