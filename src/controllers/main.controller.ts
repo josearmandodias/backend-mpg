@@ -5,5 +5,6 @@ export default {
   getUsersInLeague: async (req: Request, res: Response) => {
     const leagueId: number = parseInt(req.params.leagueId);
     const result = await dataMapper.getAllUsersInLeague(leagueId);
+    res.json(result);
   },
 }
