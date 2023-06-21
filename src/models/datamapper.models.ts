@@ -15,6 +15,11 @@ export default {
       `), { parameters: [id] });
 
       const rows = result.rows[0];
+
+      if(!rows.mpg){
+        rows.mpg = {}
+      }
+
       const mpgObject: any = rows.mpg;
 
       let users: Array<any>;
@@ -34,7 +39,7 @@ export default {
       
       console.log({ users });
 
-      return users;
+      return { users };
     } catch (err: any) {
       throw new Error(err);
     }
