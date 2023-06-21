@@ -15,6 +15,9 @@ app.use(cors());
 // JSON payload parsing
 app.use(express.json());
 
+// urlencoded payload parsing
+app.use(express.urlencoded({ extended: true }))
+
 app.use(router);
 
 app.listen(PORT, () => {

@@ -1,9 +1,9 @@
 import dataMapper from '../models/datamapper.models';
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 export default {
-  getAll: async (req: Request, res: Response) =>{
-    const result = await dataMapper.findAll()
-    console.log(result);
+  getUsersInLeague: async (req: Request, res: Response) => {
+    const leagueId: number = parseInt(req.params.leagueId);
+    const result = await dataMapper.getAllUsersInLeague(leagueId);
   },
 }

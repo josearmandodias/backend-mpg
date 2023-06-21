@@ -1,3 +1,4 @@
+import e from 'express';
 import dbconnection from '../db/db.connection';
 
 export default {
@@ -21,8 +22,17 @@ export default {
       if(!mpgObject.usersTeams){
         users = [];
       } else {
-        users = Object.keys(mpgObject.usersTeams);
+        users = [];
+
+        const test = Object.keys(mpgObject.usersTeams);
+
+        for(const key in test){
+          const obj = { name: test[key] }
+          users.push(obj);
+        }
       }
+      
+      console.log({ users });
 
       return users;
     } catch (err: any) {
