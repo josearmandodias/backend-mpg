@@ -1,5 +1,5 @@
-import e from 'express';
 import dbconnection from '../db/db.connection';
+import { Post } from '../controllers/main.controller';
 
 export default {
   getAllUsersInLeague: async (leagueId: number) => {
@@ -16,32 +16,37 @@ export default {
 
       const rows = result.rows[0];
 
-      if(!rows.mpg){
-        rows.mpg = {}
-      }
-
-      const mpgObject: any = rows.mpg;
-
-      let users: Array<any>;
-
-      if(!mpgObject.usersTeams){
-        users = [];
-      } else {
-        users = [];
-
-        const test = Object.keys(mpgObject.usersTeams);
-
-        for(const key in test){
-          const obj = { name: test[key] }
-          users.push(obj);
-        }
-      }
-      
-      console.log({ users });
-
-      return { users };
+      return rows;
     } catch (err: any) {
       throw new Error(err);
     }
+  },
+
+  createLeague: async (input: Post) => {
+    const cluster = await dbconnection();
+
+    const { id, name, description, adminId } = input;
+
+    let result = await cluster.query((`
+        UPSERT INTO mpg (KEY, VALUE)
+        VALUES ("mpg_league_4", 
+        { 
+          "id": $1, 
+          "name": $2, 
+          "description": $3, 
+          "adminId": $4 
+        })
+        RETURNING *;
+      `), { 
+        parameters: 
+        [
+          id,
+          name,
+          description, 
+          adminId
+        ]
+      });
+      
+      return result.rows[0];
   }
 }

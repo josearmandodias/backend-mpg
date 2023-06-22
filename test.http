@@ -1,0 +1,12 @@
+@endpoint = http://localhost:{{$dotenv PORT}}
+
+### Create new league
+POST {{ endpoint }}/newleague 
+content-type: application/json
+
+{
+  "id": "mpg_league_5",
+  "name": "ligue 5",
+  "description": "super mega ligue",
+  "adminId": "user_2"
+}
