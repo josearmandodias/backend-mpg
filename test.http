@@ -5,8 +5,8 @@ POST {{ endpoint }}/newleague
 content-type: application/json
 
 {
-  "id": "mpg_league_5",
+  "id": "mpg_league_9",
   "name": "ligue 5",
-  "description": "super mega ligue",
-  "adminId": "user_2"
+  "description": "bof cette ligue",
+  "adminId": "user_1"
 }

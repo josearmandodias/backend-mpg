@@ -28,8 +28,8 @@ export default {
     const { id, name, description, adminId } = input;
 
     let result = await cluster.query((`
-        UPSERT INTO mpg (KEY, VALUE)
-        VALUES ("mpg_league_4", 
+        INSERT INTO mpg (KEY, VALUE)
+        VALUES ($1, 
         { 
           "id": $1, 
           "name": $2, 
