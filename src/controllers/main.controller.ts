@@ -3,8 +3,8 @@ import { Request, Response } from 'express';
 
 export interface Post {
   id: string,
-  name: string,
-  description: string,
+  name?: string,
+  description?: string,
   adminId: number
 }
 
@@ -46,12 +46,34 @@ export default {
     try {
       const input: Post = req.body;
 
+      if(!input.adminId || !input.description || !input.name || !input.id){
+        res.status(500).send('Internal Server Error. Missing property');
+      }
+
       const result = await dataMapper.createLeague(input);
 
       if (!result) {
         res.status(500).send('Internal Server Error');
       }
       
+      res.json(result);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+  },
+
+  updateTeamName: async (req: Request, res: Response) => {
+    try {
+      const teamId: number = parseInt(req.params.teamId);
+      const userInput = req.body;
+
+      if(!userInput){
+        res.status(500).send('Internal Server Error. Property missing');
+      }
+
+      const result = await dataMapper.updateTeamName(userInput, teamId);
+
       res.json(result);
     } catch (err) {
       console.log(err);

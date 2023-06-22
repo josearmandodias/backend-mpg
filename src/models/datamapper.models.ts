@@ -38,15 +38,38 @@ export default {
         })
         RETURNING *;
       `), { 
-        parameters: 
+      parameters: 
         [
           id,
           name,
           description, 
           adminId
         ]
-      });
+    });
       
       return result.rows[0];
+  },
+
+  updateTeamName: async (input: Post, id: number) => {
+    const cluster = await dbconnection();
+
+    const teamId = 'mpg_team_1_' + Number(id);
+
+    const { name } = input;
+
+    let result = await cluster.query((`
+        UPDATE mpg
+        USE KEYS $1
+        SET name = $2
+        RETURNING *;
+      `), { 
+      parameters: 
+        [
+          teamId,
+          name,
+        ]
+    });
+
+    return result.rows[0];
   }
 }

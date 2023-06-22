@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import router from './routers/index.router';
+import middleware404 from './middlewares/error404';
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 app.use(router);
+
+app.use(middleware404);
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);

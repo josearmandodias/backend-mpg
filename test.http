@@ -10,3 +10,11 @@ content-type: application/json
   "description": "bof cette ligue",
   "adminId": "user_1"
 }
+
+### Update second team name
+PATCH {{ endpoint }}/2
+Content-Type: application/json
+
+{
+  "name": "la team de jojo"
+}
