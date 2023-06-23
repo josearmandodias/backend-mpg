@@ -9,23 +9,19 @@ export default {
     * @return {Error} 500 - Internal Server Error - application/json
     */
   getAllUsersInLeague: async (leagueId: number) => {
-    try {
-      const cluster = await dbconnection();
+    const cluster = await dbconnection();
 
-      const id = 'mpg_league_' + Number(leagueId);
-      
-      let result = await cluster.query((`
-        SELECT *
-        FROM mpg
-        WHERE id=$1;
-      `), { parameters: [id] });
+    const id = 'mpg_league_' + Number(leagueId);
+    
+    let result = await cluster.query((`
+      SELECT *
+      FROM mpg
+      WHERE id=$1;
+    `), { parameters: [id] });
+    
+    const rows = result.rows[0];
 
-      const rows = result.rows[0];
-
-      return rows;
-    } catch (err: any) {
-      throw new Error(err);
-    }
+    return rows;
   },
   /**
     * Create a league
