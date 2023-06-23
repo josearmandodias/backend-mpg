@@ -1,7 +1,13 @@
 import dbconnection from '../db/db.connection';
-import { Post } from '../controllers/main.controller';
+import { League, Team } from '../controllers/main.controller';
 
 export default {
+  /**
+    * Get all users from specific league
+    * @param {number} - Id of the league choosen by the user
+    * @return {Object} 200 - success response - application/json
+    * @return {Error} 500 - Internal Server Error - application/json
+    */
   getAllUsersInLeague: async (leagueId: number) => {
     try {
       const cluster = await dbconnection();
@@ -21,8 +27,11 @@ export default {
       throw new Error(err);
     }
   },
-
-  createLeague: async (input: Post) => {
+  /**
+    * Create a league
+    * @returns - A new league with specificities
+    */
+  createLeague: async (input: League) => {
     const cluster = await dbconnection();
 
     const { id, name, description, adminId } = input;
@@ -49,8 +58,11 @@ export default {
       
       return result.rows[0];
   },
-
-  updateTeamName: async (input: Post, id: number) => {
+  /**
+    * Update a league
+    * @returns - The choosen team with the id with the update from the user input
+    */
+  updateTeamName: async (input: Team, id: number) => {
     const cluster = await dbconnection();
 
     const teamId = 'mpg_team_1_' + Number(id);
