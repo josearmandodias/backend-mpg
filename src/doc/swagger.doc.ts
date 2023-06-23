@@ -11,7 +11,7 @@ const options = {
   // On analyse tous les fichiers du projet
   filesPattern: ['../**/**/*.ts'],
   // URL où sera disponible la page de documentation
-  swaggerUIPath: process.env.API_DOCUMENTATION_ROUTE ?? '/docs',
+  swaggerUIPath: '/docs',
   // Activation de la documentation à travers une route de l'API
   exposeApiDocs: true,
   apiDocsPath: '/api/docs',
