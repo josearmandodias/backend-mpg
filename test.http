@@ -1,0 +1,20 @@
+@endpoint = http://localhost:{{$dotenv PORT}}
+
+### Create new league
+POST {{ endpoint }}/newleague 
+content-type: application/json
+
+{
+  "id": "mpg_league_10",
+  "name": "ligue R1",
+  "description": "vraiment bof cette ligue",
+  "adminId": "user_3"
+}
+
+### Update second team name
+PATCH {{ endpoint }}/2
+Content-Type: application/json
+
+{
+  "name": "la team de lulu"
+}
