@@ -11,6 +11,7 @@ const PORT: number = parseInt(process.env.PORT as string, 10);
 
 const app = express();
 
+// Swagger doc
 doc(app);
 
 // Allowing all CORS requests
@@ -24,9 +25,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(router);
 
+// 404 error middleware
 app.use(middleware404);
-
-doc(app);
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);

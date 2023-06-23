@@ -1,6 +1,34 @@
 import dataMapper from '../models/datamapper.models';
 import { Request, Response } from 'express';
 
+/**
+ * @typedef {object} League
+ * @property {string} id - League Id
+ * @property {string} name - League name
+ * @property {string} description - Random description
+ * @property {string} adminId - User Id
+ */
+
+export interface League {
+  id: string,
+  name: string,
+  description?: string,
+  adminId: number
+}
+
+/**
+ * @typedef {object} Team
+ * @property {string} id - League Id
+ * @property {string} name - Team name
+ * @property {string} type - Team type
+ */
+
+export interface Team {
+  id: string,
+  name: string,
+  type: string
+}
+
 export default {
   /**
    * Controller to get all users in specific league.
